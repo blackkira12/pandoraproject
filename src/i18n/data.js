@@ -85,17 +85,17 @@ export const translations = {
                 authoritative: {
                     title: "The Lighthouse (Authoritative)",
                     desc: "You balance High Warmth with High Standards. This is the global gold standard.",
-                    comps: "Similar to the best practices in the **USA** (Self-expression) and modern **Japan** (Independence). You are raising a self-reliant leader."
+                    comps: "Similar to the best practices in the USA (Self-expression) and modern Japan (Independence). You are raising a self-reliant leader."
                 },
                 permissive: {
                     title: "The Concierge (Permissive)",
                     desc: "High Warmth, Low Standards. You might be doing too much *for* your child.",
-                    comps: "Common in affluent **Indonesia**. Compare to **Japan**: A 3-year-old there carries their own bag. Try stepping back to let them fail safely."
+                    comps: "Common in affluent Indonesia. Compare to Japan: A 3-year-old there carries their own bag. Try stepping back to let them fail safely."
                 },
                 authoritarian: {
                     title: "The Commander (Authoritarian)",
                     desc: "Low Warmth, High Standards. You demand obedience, but at what cost?",
-                    comps: "Historically common in **China**, but modern research warns this stifles emotional intelligence. **US** research shows this can lead to rebellion."
+                    comps: "Historically common in China, but modern research warns this stifles emotional intelligence. US research shows this can lead to rebellion."
                 }
             }
         },
@@ -209,17 +209,17 @@ export const translations = {
                 authoritative: {
                     title: "Sang Mercusuar (Authoritative)",
                     desc: "Anda menyeimbangkan Kehangatan Tinggi dengan Standar Tinggi. Ini adalah standar emas global.",
-                    comps: "Mirip dengan praktik terbaik di **AS** (Ekspresi Diri) dan **Jepang** modern (Kemandirian). Anda membesarkan pemimpin yang mandiri."
+                    comps: "Mirip dengan praktik terbaik di AS (Ekspresi Diri) dan Jepang modern (Kemandirian). Anda membesarkan pemimpin yang mandiri."
                 },
                 permissive: {
                     title: "Sang Concierge (Permissive)",
                     desc: "Kehangatan Tinggi, Standar Rendah. Anda mungkin melakukan terlalu banyak hal *untuk* anak.",
-                    comps: "Umum di kalangan **menengah atas Indonesia**. Bandingkan dengan **Jepang**: Anak 3 tahun di sana bawa tas sendiri. Cobalah mundur sedikit agar mereka belajar gagal dengan aman."
+                    comps: "Umum di kalangan menengah atas Indonesia. Bandingkan dengan Jepang: Anak 3 tahun di sana bawa tas sendiri. Cobalah mundur sedikit agar mereka belajar gagal dengan aman."
                 },
                 authoritarian: {
                     title: "Sang Komandan (Authoritarian)",
                     desc: "Kehangatan Rendah, Standar Tinggi. Anda menuntut ketaatan, tapi dengan harga apa?",
-                    comps: "Secara historis umum di **China**, tapi riset modern memperingatkan ini menghambat kecerdasan emosi. Riset **AS** menunjukkan ini bisa memicu pemberontakan."
+                    comps: "Secara historis umum di China, tapi riset modern memperingatkan ini menghambat kecerdasan emosi. Riset AS menunjukkan ini bisa memicu pemberontakan."
                 }
             }
         },
