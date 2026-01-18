@@ -7,12 +7,33 @@ export const translations = {
             quiz: "Parent Quiz",
             lang: "Bahasa Indonesia"
         },
-        hero: {
-            title: "Unlock Potential.",
-            subtitle: "The Pandora Project",
-            desc: "Money buys comfort, not character. <br> Evidence-based parenting strategies for the next generation of Indonesian leaders.",
-            btnScreener: "Check Milestones (Denver II)",
-            btnQuiz: "Take the Quiz"
+        // V2: Home Page subdivided into narrative sections
+        home: {
+            hero: {
+                headline: "The Art of Growing Humans.",
+                subhead: "A space for reflection. A guide for parents who want to build character, not just credentials.",
+                cta: "Begin Your Journey"
+            },
+            context: {
+                heading: "Why This Exists",
+                body: "We live in an era of high-resource, low-connection parenting.<br><br>We outsource education. We outsource play. We outsource struggle.<br><br>But character cannot be bought. It must be built.",
+                anchor: "Money buys comfort. Habits build the future."
+            },
+            concept: {
+                heading: "What This Is",
+                body: "The Pandora Project is not a school. It is a mirror. <br> It is a curated space to examine your parenting “operating system” against global standards of excellence.",
+                anchor: "This is an invitation, not an examination."
+            },
+            experience: {
+                heading: "How to Engage",
+                body: "You'll find three tools here:<br><br>A <strong>Developmental Screener</strong> to track milestones.<br>A <strong>Parenting Quiz</strong> to reveal your style.<br>A <strong>Reality Check</strong> to compare daily routines.<br><br>Use them to calibrate your awareness, not to grade your child.",
+                anchor: "Observation is the highest form of love."
+            },
+            invitation: {
+                heading: "Ready to Begin?",
+                body: "The journey from “Providing” to “Parenting” begins with a single honest look.",
+                cta: "Start Exploring"
+            }
         },
         screener: {
             title: "Developmental Checkpoints (Denver II)",
@@ -131,12 +152,33 @@ export const translations = {
             quiz: "Kuis Orang Tua",
             lang: "English"
         },
-        hero: {
-            title: "Buka Potensi Mereka.",
-            subtitle: "The Pandora Project",
-            desc: "Uang membeli kenyamanan, bukan karakter. <br> Strategi parenting berbasis bukti untuk generasi pemimpin Indonesia berikutnya.",
-            btnScreener: "Cek Milestones (Denver II)",
-            btnQuiz: "Ikuti Kuis"
+        // V2: Home Page subdivided into narrative sections
+        home: {
+            hero: {
+                headline: "Seni Menumbuhkan Manusia.",
+                subhead: "Refleksi terpimpin bagi orang tua yang ingin membangun warisan karakter, bukan sekadar nilai rapor.",
+                cta: "Mulai"
+            },
+            context: {
+                heading: "Mengapa Ini Ada",
+                body: "Kita hidup di era parenting yang kaya fasilitas tapi miskin koneksi. Kita meng-outsource sekolah, meng-outsource bermain, dan meng-outsource kesulitan. <br><br> Tapi karakter tidak bisa dibeli. Ia harus dibangun.",
+                anchor: "Uang membeli kenyamanan. Kebiasaan membeli masa depan."
+            },
+            concept: {
+                heading: "Apa Ini Sebenarnya",
+                body: "Pandora Project bukan sekolah. Ini adalah cermin. <br> Sebuah ruang kurasi untuk memeriksa “sistem operasi” pengasuhan Anda terhadap standar keunggulan global.",
+                anchor: "Sebuah undangan, bukan pameran."
+            },
+            experience: {
+                heading: "Cara Terlibat",
+                body: "Anda akan menemukan alat di sini—Screener, Kuis, Cek Realitas. <br> Gunakan bukan untuk menilai anak Anda, tapi untuk mengkalibrasi kesadaran Anda sendiri.",
+                anchor: "Observasi adalah bentuk cinta tertinggi."
+            },
+            invitation: {
+                heading: "Langkah Maju",
+                body: "Perjalanan dari sekadar “Menyediakan” ke “Mengasuh” dimulai dengan satu tatapan jujur.",
+                cta: "Masuki Pengalaman"
+            }
         },
         screener: {
             title: "Titik Cek Perkembangan (Denver II)",
@@ -161,11 +203,11 @@ export const translations = {
                 "gm-2": "Duduk tanpa pegangan",
                 "gm-3": "Berdiri berpegangan",
                 "ps-4": "Main bola dengan pemeriksa",
+                "fm-4": "Menara 4 kubus",
                 "fm-3": "Mencoret-coret",
                 "lg-3": "3 kata selain Mama/Dada",
                 "gm-4": "Berjalan dengan baik",
                 "ps-5": "Mencuci dan mengeringkan tangan",
-                "fm-4": "Menara 4 kubus",
                 "lg-4": "Tahu 2 kata sifat",
                 "gm-5": "Melompat di tempat",
                 "ps-6": "Berpakaian sendiri tanpa bantuan",

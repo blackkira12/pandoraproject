@@ -1,176 +1,201 @@
+import './style.css';
+import { renderScreener } from './modules/screener.js';
+import { renderQuiz } from './modules/quiz.js';
+import { renderComparison } from './modules/comparison.js';
+import { translations } from './i18n/data.js';
 
-import './style.css'
-import { renderScreener } from './modules/screener.js'
-import { renderQuiz } from './modules/quiz.js'
-import { renderComparison } from './modules/comparison.js'
-import { translations } from './i18n/data.js'
-
-const app = document.querySelector('#app')
+let currentLang = 'en';
 
 const routes = {
-  home: renderHome,
-  screener: renderScreener,
-  quiz: renderQuiz
-}
+  '/': renderHome,
+  '/screener': renderScreener,
+  '/quiz': renderQuiz
+};
 
-let currentRoute = 'home'
-let currentLang = 'en'
+let currentRoute = '/';
+
+function navigate(path) {
+  window.history.pushState({}, path, window.location.origin + path);
+  currentRoute = path;
+
+  // Smooth scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Page Transition Logic
+  const app = document.getElementById('app');
+  app.classList.add('page-exit');
+  app.classList.add('page-exit-active');
+
+  setTimeout(() => {
+    renderApp();
+    app.classList.remove('page-exit', 'page-exit-active');
+    app.classList.add('page-enter');
+
+    // Force reflow
+    void app.offsetWidth;
+
+    app.classList.add('page-enter-active');
+
+    setTimeout(() => {
+      app.classList.remove('page-enter', 'page-enter-active');
+    }, 500);
+  }, 300);
+}
 
 function renderNav() {
-  const t = translations[currentLang].nav
-  const nav = document.createElement('nav')
-  nav.style.cssText = `
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  `
-
-  const links = [
-    { id: 'home', text: t.home },
-    { id: 'screener', text: t.screener },
-    { id: 'quiz', text: t.quiz }
-  ]
-
-  links.forEach(link => {
-    const btn = document.createElement('button')
-    btn.textContent = link.text
-    btn.style.cssText = `
-      background: transparent;
-      border: none;
-      color: ${currentRoute === link.id ? 'var(--color-secondary)' : 'var(--color-text-muted)'};
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: 1.1rem;
-      cursor: pointer;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid ${currentRoute === link.id ? 'var(--color-secondary)' : 'transparent'};
-      transition: all 0.3s;
-    `
-    btn.onclick = () => {
-      // Prevent reloading same route
-      if (currentRoute === link.id) return
-      currentRoute = link.id
-      renderApp()
-    }
-    nav.appendChild(btn)
-  })
-
-  // Language Toggle
-  const langBtn = document.createElement('button')
-  langBtn.textContent = '🌐 ' + (currentLang === 'en' ? 'ID' : 'EN')
-  langBtn.style.cssText = `
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    margin-left: 1rem;
-  `
-  langBtn.onclick = () => {
-    currentLang = currentLang === 'en' ? 'id' : 'en'
-    renderApp()
-  }
-  nav.appendChild(langBtn)
-
-  return nav
+  const t = translations[currentLang].nav;
+  return `
+        <nav>
+            <div class="logo">Pandora.</div>
+            <div class="nav-links">
+                <button class="nav-btn ${currentRoute === '/' ? 'active' : ''}" data-path="/">${t.home}</button>
+                <button class="nav-btn ${currentRoute === '/screener' ? 'active' : ''}" data-path="/screener">${t.screener}</button>
+                <button class="nav-btn ${currentRoute === '/quiz' ? 'active' : ''}" data-path="/quiz">${t.quiz}</button>
+                <button id="lang-toggle" class="lang-toggle">${t.lang}</button>
+            </div>
+        </nav>
+    `;
 }
 
-function renderHome(lang) {
-  const t = translations[lang].hero
-  const container = document.createElement('div')
-  container.className = 'hero-section'
-  container.innerHTML = `
-    <div class="glass-card float-anim">
-      <h1>
-        <span class="serif-italic">${t.subtitle}</span>
-        ${t.title}
-      </h1>
-      <p style="font-size: 1.5rem; max-width: 60ch; color: var(--color-text-muted); margin: 0 auto 2rem;">
-        ${t.desc}
-      </p>
-      
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <button class="btn-primary" id="start-screener">${t.btnScreener}</button>
-        <button class="btn-primary" id="start-quiz" style="background: transparent; border: 1px solid var(--color-primary); box-shadow: none;">${t.btnQuiz}</button>
-      </div>
-    </div>
-  `
+// V2: Narrative Scroll Home Page
+function renderHome() {
+  const t = translations[currentLang].home;
+  const tNav = translations[currentLang].nav;
 
-  // Append Comparison Card
-  const comparisonCard = renderComparison(lang)
-  container.appendChild(comparisonCard)
+  return `
+        <!-- Section 1: HERO (Orientation) -->
+        <section id="hero" class="narrative-section">
+            <h1 class="scroll-reveal float-anim">${t.hero.headline}</h1>
+            <p class="scroll-reveal" style="transition-delay: 0.2s">${t.hero.subhead}</p>
+            <button id="btn-begin" class="btn-primary scroll-reveal" style="transition-delay: 0.4s">${t.hero.cta}</button>
+        </section>
 
-  // Bind events
-  setTimeout(() => {
-    container.querySelector('#start-screener').onclick = () => { currentRoute = 'screener'; renderApp() }
-    container.querySelector('#start-quiz').onclick = () => { currentRoute = 'quiz'; renderApp() }
-  }, 0)
+        <!-- Section 2: CONTEXT (Why This Exists) -->
+        <section id="context" class="narrative-section">
+            <div class="scroll-reveal">
+                <div class="heading-label">${t.context.heading}</div>
+                <p>${t.context.body}</p>
+                <div class="anchor-line">${t.context.anchor}</div>
+            </div>
+        </section>
 
-  return container
+        <!-- Section 3: CONCEPT (What It Is) -->
+        <section id="concept" class="narrative-section">
+             <div class="scroll-reveal">
+                <h2>${t.concept.heading}</h2>
+                <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto;">${t.concept.body}</p>
+                <div style="margin-top:2rem; color: var(--color-primary); letter-spacing: 1px;">${t.concept.anchor}</div>
+            </div>
+        </section>
+
+        <!-- Section 4: EXPERIENCE (How to Engage) -->
+        <section id="experience" class="narrative-section">
+            <div class="scroll-reveal">
+                <h2>${t.experience.heading}</h2>
+                <p style="margin-bottom: 3rem; font-size: 1.1rem; color: var(--color-text-muted);">${t.experience.body}</p>
+                
+                <!-- Embedded Reality Check as a teaser -->
+                <div id="comparison-container"></div>
+                
+                <p style="margin-top: 2rem; font-style: italic; color: var(--color-text-muted);">${t.experience.anchor}</p>
+            </div>
+        </section>
+
+        <!-- Section 5: INVITATION (The Step Forward) -->
+        <section id="invitation" class="narrative-section">
+            <div class="scroll-reveal">
+                <h2>${t.invitation.heading}</h2>
+                <p style="font-size: 1.5rem; margin-bottom: 3rem; font-family: var(--font-heading);">${t.invitation.body}</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button id="btn-enter-quiz" class="btn-primary">${t.invitation.cta}</button>
+                    <button id="btn-enter-screener" class="btn-secondary">${tNav.screener}</button>
+                </div>
+            </div>
+        </section>
+    `;
 }
 
 function renderApp() {
-  const t = translations[currentLang].nav // Refresh nav translation
+  const app = document.getElementById('app');
+  app.innerHTML = renderNav();
 
-  // 1. Handle Navigation (Always visible)
-  const existingNav = app.querySelector('nav')
-  if (existingNav) {
-    existingNav.replaceWith(renderNav())
-  } else {
-    app.appendChild(renderNav())
+  const content = document.createElement('div');
+  content.id = 'page-content'; // Wrapper for transition targets
+
+  // Route matching
+  const renderer = routes[currentRoute] || renderHome;
+  content.innerHTML = renderer(currentLang);
+
+  app.appendChild(content);
+
+  // Event Listeners
+
+  // Navigation
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      navigate(btn.dataset.path);
+    };
+  });
+
+  // Language Toggle
+  const langBtn = document.getElementById('lang-toggle');
+  if (langBtn) {
+    langBtn.onclick = () => {
+      currentLang = currentLang === 'en' ? 'id' : 'en';
+      renderApp();
+    };
   }
 
-  // 2. Handle Content Transition
-  const oldContent = app.querySelector('.route-content')
-
-  const performRender = () => {
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-
-    // Generate new content
-    const content = routes[currentRoute](currentLang)
-
-    // Wrapper for animation
-    const wrapper = document.createElement('div')
-    wrapper.className = 'route-content page-enter'
-    // Ensure content takes full width
-    wrapper.style.width = '100%'
-
-    if (typeof content === 'string') {
-      wrapper.innerHTML = content
-    } else {
-      wrapper.appendChild(content)
+  // Home Page Specific Logic (V2)
+  if (currentRoute === '/') {
+    // Embed Comparison in Experience Section
+    const compContainer = document.getElementById('comparison-container');
+    if (compContainer) {
+      compContainer.appendChild(renderComparison(currentLang));
     }
 
-    app.appendChild(wrapper)
+    // Home Buttons
+    const btnBegin = document.getElementById('btn-begin');
+    if (btnBegin) {
+      btnBegin.onclick = () => {
+        const contextSection = document.getElementById('context');
+        contextSection.scrollIntoView({ behavior: 'smooth' });
+      };
+    }
 
-    // Trigger Reflow for Enter animation
-    requestAnimationFrame(() => {
-      wrapper.classList.remove('page-enter')
-      wrapper.classList.add('page-enter-active')
-    })
-  }
+    const btnEnterQuiz = document.getElementById('btn-enter-quiz');
+    if (btnEnterQuiz) {
+      btnEnterQuiz.onclick = () => navigate('/quiz');
+    }
 
-  if (oldContent) {
-    // Animate out
-    oldContent.classList.remove('page-enter-active')
-    oldContent.classList.add('page-exit-active')
+    const btnEnterScreener = document.getElementById('btn-enter-screener');
+    if (btnEnterScreener) {
+      btnEnterScreener.onclick = () => navigate('/screener');
+    }
 
-    oldContent.addEventListener('transitionend', () => {
-      oldContent.remove()
-      performRender()
-    }, { once: true })
-  } else {
-    // Initial load
-    performRender()
+    // Scroll Reveal Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Optional: Stop observing once visible if we want it to happen only once
+          // observer.unobserve(entry.target); 
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
   }
 }
 
-// Initial Render
-renderApp()
+// Initial Load
+document.addEventListener('DOMContentLoaded', () => {
+  // Handle back/forward browser buttons
+  window.onpopstate = () => {
+    currentRoute = window.location.pathname;
+    renderApp();
+  };
+
+  renderApp();
+});
