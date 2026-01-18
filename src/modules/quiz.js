@@ -6,6 +6,8 @@ export function renderQuiz(lang = 'en') {
 
   const container = document.createElement('div');
   container.className = 'glass-card';
+  container.style.maxWidth = '700px';
+  container.style.margin = '0 auto';
   let currentQ = 0;
   let scores = { authoritative: 0, permissive: 0, authoritarian: 0 };
 

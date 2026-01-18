@@ -65,12 +65,15 @@ export function renderScreener(lang = 'en') {
   const tabs = document.createElement('div');
   tabs.className = 'age-tabs';
   tabs.style.display = 'flex';
+  tabs.style.justifyContent = 'center';
   tabs.style.gap = '1rem';
   tabs.style.marginBottom = '2rem';
   tabs.style.flexWrap = 'wrap';
 
   const contentArea = document.createElement('div');
   contentArea.className = 'glass-card';
+  contentArea.style.maxWidth = '800px';
+  contentArea.style.margin = '0 auto';
 
   milestonesData.forEach((group, index) => {
     const btn = document.createElement('button');
@@ -116,14 +119,14 @@ function renderGroup(group, container, t) {
     const text = t.items[item.id];
 
     return `
-        <div class="milestone-item" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
-          <input type="checkbox" id="${item.id}" style="width: 20px; height: 20px; accent-color: var(--color-secondary);">
-          <div>
-            <div style="font-weight: 600;">${text}</div>
-            <div style="font-size: 0.8em; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
-              ${item.critical ? `<span style="color: var(--color-accent); margin-left: 0.5rem;">● ${t.critical}</span>` : ''}
+        <div class="milestone-item" style="display: flex; align-items: flex-start; gap: 1.5rem; padding: 1.25rem; background: rgba(255,255,255,0.05); border-radius: 12px; transition: background 0.3s ease;">
+          <input type="checkbox" id="${item.id}" style="width: 24px; height: 24px; accent-color: var(--color-secondary); margin-top: 0.2rem; cursor: pointer;">
+          <label for="${item.id}" style="cursor: pointer; flex: 1;">
+            <div style="font-weight: 500; font-size: 1.1rem; line-height: 1.4;">${text}</div>
+            <div style="font-size: 0.85em; color: var(--color-text-muted); margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">
+              ${item.critical ? `<span style="color: var(--color-accent); font-weight: 700;">● ${t.critical}</span>` : ''}
             </div>
-          </div>
+          </label>
         </div>
       `}).join('')}
     </div>
