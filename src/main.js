@@ -123,8 +123,15 @@ function renderApp() {
   content.id = 'page-content'; // Wrapper for transition targets
 
   // Route matching
-  const renderer = routes[currentRoute] || renderHome;
-  content.innerHTML = renderer(currentLang);
+  if (currentRoute === '/') {
+    content.innerHTML = renderHome(currentLang);
+  } else if (currentRoute === '/screener') {
+    content.appendChild(renderScreener(currentLang));
+  } else if (currentRoute === '/quiz') {
+    content.appendChild(renderQuiz(currentLang));
+  } else {
+    content.innerHTML = renderHome(currentLang);
+  }
 
   app.appendChild(content);
 

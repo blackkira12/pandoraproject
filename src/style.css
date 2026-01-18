@@ -120,11 +120,22 @@ nav {
 }
 
 .lang-toggle {
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(142, 157, 255, 0.3);
   padding: 0.4rem 1rem;
   border-radius: 20px;
+  background: rgba(142, 157, 255, 0.1);
   color: var(--color-text);
   margin-left: 2rem;
+  cursor: pointer;
+  transition: all 0.3s var(--transition-smooth);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+.lang-toggle:hover {
+  background: rgba(142, 157, 255, 0.2);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
 }
 
 /* Page Container & Transitions */
